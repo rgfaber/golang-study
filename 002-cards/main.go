@@ -3,16 +3,24 @@ package main
 import "fmt"
 
 func main() {
-	cards := []string{newCard(), newCard()}
-	cards = append(cards, "Six of Spades", "Ace of Clubs")
-	fmt.Println(cards)
+	var cards = newDeck()
+	hand, rest := deal(cards, 3)
+	fmt.Println("Hand")
+	hand.print()
 
-	for i, card := range cards {
-		fmt.Println(i, card)
+	fmt.Println("Rest")
+	rest.print()
+	fmt.Println(hand.toString())
+	err := hand.saveToFile("hand.txt")
+	if err != nil {
 	}
-
-}
-
-func newCard() string {
-	return "Five of Diamonds"
+	myDeck := newDeck()
+	err2 := myDeck.saveToFile("deck")
+	if err2 != nil {
+		return
+	}
+	readDeck := newDeck()
+	readDeck.print()
+	readDeck.shuffle()
+	readDeck.print()
 }
